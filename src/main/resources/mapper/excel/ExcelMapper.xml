@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.kr.bp.mapper.ExcelMapper">
+	<insert id="insertExcel" flushCache="true" parameterType="java.util.List" useGeneratedKeys="true">
+		INSERT INTO api_excel  (
+			companyid,
+			userid,
+			name,
+			phone,
+			reg_date
+		)
+		VALUES
+			<foreach collection="list" item="item" index="index" separator=",">
+			(
+				#{item.companyid},
+				#{item.userid}, 
+				#{item.name},
+				#{item.phone},  
+				now()	
+			) 	
+			</foreach> 
+	</insert>
+	<select id="getExcelList" parameterType="Long" resultType="Map">
+		SELECT 
+			companyid, userid, name, phone
+		FROM api_excel
+	</select>
+</mapper>
